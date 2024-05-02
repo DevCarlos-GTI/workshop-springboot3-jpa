@@ -2,12 +2,24 @@ package com.devcarlosgti.courseSprint.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_user")//renomei minha tabela pq User da classe vai conflito
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	//(@GeneratedValue) auto-encrementado(anotação p JPA )o id
 	//private Integer id;
-	private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id; 
+	
 	private String name;
 	private String email;
 	private String phone;
