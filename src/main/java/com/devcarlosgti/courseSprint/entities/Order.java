@@ -3,6 +3,7 @@ package com.devcarlosgti.courseSprint.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,25 +15,29 @@ import jakarta.persistence.Table;
 
 //Classe pedido - nas Entites td e é persistencia de banco
 @Entity
-@Table(name = "tb_order")//criei uma anoção p ñ haver conflitos pd Order e uma palavra reservado do SQL
-public class Order implements Serializable{
+@Table(name = "tb_order") // criei uma anoção p ñ haver conflitos pd Order e uma palavra reservado do SQL
+public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	//anotação p tabela database
+
+	// anotação p tabela database
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	//private Date moment;
+
+	// private Date moment;
+	// vamos formart nosso Instant(Data)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
-	
-	//associação com a classe User (tem um)
-	//vamos fazer a anotação p tranformar Chave Estrangeira(Foreign Key (FK))
-	//relação Muitos(Order) p um(User) * -> 1
+
+	// associação com a classe User (tem um)
+	// vamos fazer a anotação p tranformar Chave Estrangeira(Foreign Key (FK))
+	// relação Muitos(Order) p um(User) * -> 1
+	// @JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "client_id") // vai nome da Foreign Key (FK) , ousej, nome da chave estranjeira
 	private User client;
-	
+
 	public Order() {
 		// TODO Auto-generated constructor stub
 	}
@@ -92,6 +97,5 @@ public class Order implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
+
 }

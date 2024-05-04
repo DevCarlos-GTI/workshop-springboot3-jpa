@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +32,7 @@ public class User implements Serializable{
 	
 	//associação com pedido(Classe Order) tem * (* = varios)
 	//como tem uma coleção(quando coleção ñ usa set(pq ñ pode alterar) so usa GET temos Instaciar o array tambem
+	@JsonIgnore // @JsonIgnore  - ele interrompe o loop infinito da associação e traz o item associado
 	@OneToMany(mappedBy = "client") // tenho q onde esta mapeado minha relação (OneToMany) 1 p *
 	private List<Order> orders = new ArrayList<>();
 	
