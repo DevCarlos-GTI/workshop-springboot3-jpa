@@ -20,6 +20,7 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private UserRepository userRepository;//ele acesso os dados
 
+	//inserção de dados na minha tabela
 	@Override
 	public void run(String... args) throws Exception {
 		
