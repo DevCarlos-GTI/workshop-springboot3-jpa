@@ -1,11 +1,14 @@
 package com.devcarlosgti.courseSprint.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +27,11 @@ public class User implements Serializable{
 	private String email;
 	private String phone;
 	private String password;
+	
+	//associação com pedido(Classe Order) tem * (* = varios)
+	//como tem uma coleção(quando coleção ñ usa set(pq ñ pode alterar) so usa GET temos Instaciar o array tambem
+	@OneToMany(mappedBy = "client") // tenho q onde esta mapeado minha relação (OneToMany) 1 p *
+	private List<Order> orders = new ArrayList<>();
 	
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -77,7 +85,13 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	//somente metodo Get para coleção (lista) pq ñ pode ser alterada
+	public List<Order> getOrders() {
+		return orders;
+	}
+	
+	//hastcode serve p comparar
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -102,6 +116,7 @@ public class User implements Serializable{
 			return false;
 		return true;
 	}
-	
+
+
 
 }
