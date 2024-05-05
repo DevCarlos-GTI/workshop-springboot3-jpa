@@ -20,7 +20,7 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 
-	//motodo q busue todos users(quando é todos sempre use uma lista) lista de Entidades
+	//motodo q busue todos Categories(quando é todos sempre use uma lista) lista de Entidades
 	public List<Category> findAll(){
 		return repository.findAll();//repository é a conexão e finALL e q busca todos 
 	}

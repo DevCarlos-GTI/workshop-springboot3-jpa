@@ -1,12 +1,15 @@
 package com.devcarlosgti.courseSprint.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 
 @Entity
@@ -19,6 +22,11 @@ public class Category implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	
+	//vamos associar 
+	@Transient //@Transient imterromp por enquanto a associação 
+	private Set<Product> products = new HashSet<>();
 	
 	public Category() {
 		// TODO Auto-generated constructor stub
@@ -45,6 +53,17 @@ public class Category implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	//getters e setters do Products 
+	/*public Set<Product> getProducts() {
+		return products;
+	}*/
+
+	//no so o metodo GET pq é uma coleção e ñ pode ser trocada
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -70,6 +89,7 @@ public class Category implements Serializable{
 			return false;
 		return true;
 	}
+
 	
 	
 }
