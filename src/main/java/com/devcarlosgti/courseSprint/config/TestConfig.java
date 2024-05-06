@@ -60,6 +60,22 @@ public class TestConfig implements CommandLineRunner{
 		//vamos salvar Product no database
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 		
+		//vamos fazer as associações de produtos e categorias
+		p1.getCategories().add(cat2);//eu to aqui q meu p1 pertence a categoria cat2
+		
+		p2.getCategories().add(cat1);//aqui to q o protudo p2 pertence tanto a categoria cat1 e cat3
+		p2.getCategories().add(cat3);
+		
+		p3.getCategories().add(cat3);
+		
+		p4.getCategories().add(cat3);
+		
+		p5.getCategories().add(cat2);
+		
+		//vamos salvar agora as associações muitos p muitos de produto com categoria
+		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));//so chamo a operação novament de salvar
+		
+		
 		//inserir User
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456"); 
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");

@@ -8,8 +8,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "td_product")//name da tabela no database
@@ -24,13 +26,21 @@ public class Product implements Serializable{
 	private String description;
 	private Double price;
 	private String imgUrl;
+	
+	
 
 	// vamos associar (p restringir vou ñ vou usar lista mais sim
 	// Set (pq ele é um conjunto) assim ñ terei mais um de um conjunto de categoria
 	// SET tambem é uma lista porem com reitrições de conjuntos
-	@Transient //@Transient imterromp por enquanto a associação so p criar banco 
-	private Set<Category> categories = new HashSet<>();// HashSet e uma classe q instancia a inteface SET
-														// p q minha coleção ñ comece null mais sim vazia
+	// vou tirar o @Transient p fazer a relação cooerta  
+	//@Transient imterromp por enquanto a associação so p criar banco 
+	
+	
+	//muitos p muita a uni as tabela e crias chaves estrangeira de cada uma 1° corresponde a Entidate principal e 2° inversa e q esta relacionada
+	@ManyToMany//(Muitos p muitos) - //(name = "tb_product_categoria") - vai ser nome da tabela criada/n database Relacional
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id") )// @JoinColumn(name = "product_id")) chave estrangeira criada
+	private Set<Category> categories = new HashSet<>();
+	// HashSet e uma classe q instancia a inteface SET p q minha coleção ñ comece null mais sim vazia
 
 	// vamos criar nossos construtores
 	public Product() {
