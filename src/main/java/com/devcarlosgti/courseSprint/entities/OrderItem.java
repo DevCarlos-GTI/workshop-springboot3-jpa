@@ -3,6 +3,7 @@ package com.devcarlosgti.courseSprint.entities;
 import java.io.Serializable;
 
 import com.devcarlosgti.courseSprint.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -17,7 +18,7 @@ public class OrderItem implements Serializable {
 	
 	//indentificador(id) vai ser nossa chave primaria composta criada la da classe OrderItemPK
 	@EmbeddedId//so chave composta
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK();//temos instaciar
 	
 	private Integer quantity;
 	private Double price;
@@ -38,6 +39,7 @@ public class OrderItem implements Serializable {
 	}
 	
 	//tenho q criar os gettes e setters do Order e Products p poder manipula-los
+	@JsonIgnore//como e composto coloco no get pois ele pega Order e ignora mao dupla p loop 
 	public Order getOrder() {
 		return id.getOrder();//nesse tenho usar o id pois ele q ta associado
 	}

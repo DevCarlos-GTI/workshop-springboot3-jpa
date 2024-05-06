@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.devcarlosgti.courseSprint.entities.Category;
 import com.devcarlosgti.courseSprint.entities.Order;
+import com.devcarlosgti.courseSprint.entities.OrderItem;
 import com.devcarlosgti.courseSprint.entities.Product;
 import com.devcarlosgti.courseSprint.entities.User;
 import com.devcarlosgti.courseSprint.entities.enums.OrderStatus;
 import com.devcarlosgti.courseSprint.repositories.CategoryRepository;
+import com.devcarlosgti.courseSprint.repositories.OrderItemRepository;
 import com.devcarlosgti.courseSprint.repositories.OrderRepository;
 import com.devcarlosgti.courseSprint.repositories.ProductRepository;
 import com.devcarlosgti.courseSprint.repositories.UserRepository;
@@ -36,6 +38,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	//inserção de usuarios na minha tabela(ouseja salvar no banco)
 	@Override
@@ -88,6 +93,15 @@ public class TestConfig implements CommandLineRunner{
 		//vamos salvar no database
 		userRepository.saveAll(Arrays.asList(u1,u2));//estou salvando uma lista de users
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+		
+		//como se associar todos vou colocar aqui 
+		//inserir OrderItem
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice()); 
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice()); 
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice()); 
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 	
 	
