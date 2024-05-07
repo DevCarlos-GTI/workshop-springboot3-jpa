@@ -3,6 +3,8 @@ package com.devcarlosgti.courseSprint.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,7 @@ public class Payment implements Serializable {
 	private Instant monent;
 	
 	//associação (um p um) com pedido(order) - obs.: a Classe Payment depende da Classe Order por isso @MapsId
+	@JsonIgnore//para estopar o loop
 	@OneToOne
 	@MapsId
 	private Order order;

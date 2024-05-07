@@ -127,7 +127,17 @@ public class Order implements Serializable {
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
-
+	
+	//vamos criar o Total de tudo - p somar o total percorrer todos OrderItem e soma com SubTotal
+	public double getTotal() {
+		double sum = 0.0;
+		for(OrderItem x : items) {
+			//sum = sum + x.getSubTotal();
+			sum += x.getSubTotal();//simplificando
+		}
+		
+		return sum;
+	}
 
 	@Override
 	public int hashCode() {

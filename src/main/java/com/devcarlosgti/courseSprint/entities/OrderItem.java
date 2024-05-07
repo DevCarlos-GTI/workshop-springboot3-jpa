@@ -74,6 +74,11 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 	
+	//vaos criar o metodo subtotal, o Java EE o q vale o so get 
+	//public Double subTotal() {
+	public Double getSubTotal() {
+		return  price * quantity;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -99,7 +104,6 @@ public class OrderItem implements Serializable {
 			return false;
 		return true;
 	}
-
 	
 
 }
