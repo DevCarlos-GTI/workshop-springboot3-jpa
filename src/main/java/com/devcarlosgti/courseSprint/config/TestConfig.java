@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.devcarlosgti.courseSprint.entities.Category;
 import com.devcarlosgti.courseSprint.entities.Order;
 import com.devcarlosgti.courseSprint.entities.OrderItem;
+import com.devcarlosgti.courseSprint.entities.Payment;
 import com.devcarlosgti.courseSprint.entities.Product;
 import com.devcarlosgti.courseSprint.entities.User;
 import com.devcarlosgti.courseSprint.entities.enums.OrderStatus;
@@ -102,6 +103,13 @@ public class TestConfig implements CommandLineRunner{
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		//inser um payment, eu nem preciso de um Repository de payment pq ele ja dependo de Order
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);//vc ñ salva payment mais sim o pedido(Order)	
+		
+		//vamos salvar
+		orderRepository.save(o1);
 	}
 	
 	

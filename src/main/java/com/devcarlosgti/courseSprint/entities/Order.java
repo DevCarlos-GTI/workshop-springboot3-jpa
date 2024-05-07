@@ -8,6 +8,7 @@ import java.util.Set;
 import com.devcarlosgti.courseSprint.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 //Classe pedido - nas Entites td e é persistencia de banco
@@ -51,6 +53,10 @@ public class Order implements Serializable {
 	@OneToMany(mappedBy = "id.order")//no OrderIntem tennho uma id q pega Order e Produto entao eu coloco . em Order pois e a associação
 	private Set<OrderItem> items = new HashSet<>();//como ja instaciei não precisa iniciar e sim setar
 	//temos q fazer os Getters e Setters de itens agora p poder munipula-los
+	
+	//associação com payment
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)//estamos mapeando p payment ter o mesmo id de Order pelo fato ser depedente
+	private Payment payment;
 	
 	public Order() {
 		// TODO Auto-generated constructor stub
@@ -112,6 +118,16 @@ public class Order implements Serializable {
 	public void setItems(Set<OrderItem> items) {
 		this.items = items;
 	}
+	
+	//getters e setters de payment
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -121,6 +137,7 @@ public class Order implements Serializable {
 		return result;
 	}
 
+	
 	
 	@Override
 	public boolean equals(Object obj) {
