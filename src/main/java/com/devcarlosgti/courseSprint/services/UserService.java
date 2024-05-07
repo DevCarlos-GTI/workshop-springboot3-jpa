@@ -30,4 +30,9 @@ public class UserService {
 		Optional<User> obj =  repository.findById(id);
 		return obj.get();//. get porder pegar 
 	}
+	
+	//metodo p inserir dados
+	public User insert(User obj) {
+		return repository.save(obj);
+	}
 }
