@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +57,12 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(obj);//create espera uma URi
 	}
 	
+	//metodos para deletar
+	@DeleteMapping(value = "/{id}")//tem q passar id 
+	public ResponseEntity<Void> delete(@PathVariable Long id){//p reconhecer o Long id tenho q colocar @PathVariable
+		service.delete(id);
+		return ResponseEntity.noContent().build();//noContent() O código de resposta HTTP de status de sucesso 204 No Content indica que a solicitação foi bem sucedida
+	}
 	
 		//forma manual
 	/*public ResponseEntity<User> findAll(){
