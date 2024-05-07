@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -42,6 +45,9 @@ public class Product implements Serializable{
 	private Set<Category> categories = new HashSet<>();
 	// HashSet e uma classe q instancia a inteface SET p q minha coleção ñ comece null mais sim vazia
 
+	//SET pq informo p JPA q ñ adimito Repetição do OrdemItem
+	@OneToMany(mappedBy = "id.product") // product tem q ser = esta na clase OrdemItemPK PK composta
+	private Set<OrderItem> items = new HashSet<>();//instaciado
 	// vamos criar nossos construtores
 	public Product() {
 		// TODO Auto-generated constructor stub
@@ -106,6 +112,21 @@ public class Product implements Serializable{
 		/*public void setCategories(Set<Category> categories) {
 			this.categories = categories;
 	}*/
+	
+	//vamos criar os Getters e Setters de items q no caso serar Orders pq não quero acessar o itens mais sim o perdido
+	@JsonIgnore
+	public Set<Order> getOrders() {
+		Set<Order> set = new HashSet<>();
+		for(OrderItem x: items) {
+			set.add(x.getOrder());
+		}
+		
+		return set;
+	}
+
+	public void setItems(Set<OrderItem> items) {
+		this.items = items;
+	}
 
 	@Override
 	public int hashCode() {
@@ -114,6 +135,8 @@ public class Product implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
+	
 
 	@Override
 	public boolean equals(Object obj) {
