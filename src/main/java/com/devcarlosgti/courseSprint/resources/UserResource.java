@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,6 +65,12 @@ public class UserResource {
 		return ResponseEntity.noContent().build();//noContent() O código de resposta HTTP de status de sucesso 204 No Content indica que a solicitação foi bem sucedida
 	}
 	
+	//metodo p atualizar
+	@PutMapping(value = "/{id}") //No HTTP, indicamos que queremos alterar um recurso por meio de requisições do tipo PUT
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj){
+		obj = service.update(id, obj);
+		return ResponseEntity.ok().body(obj);
+	}
 		//forma manual
 	/*public ResponseEntity<User> findAll(){
 		//faco a busca

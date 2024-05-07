@@ -40,4 +40,21 @@ public class UserService {
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	//metodo update
+	public User update(Long id, User obj) {
+		//User entity = repository.getOne(id); getONE dexou de uso agora é getReferenceById
+		//vai sedeixar no ponto para poder trabalhar com database
+		User entity = repository.getReferenceById(id);
+		updateData(entity, obj);//esse metdodo serar criado
+		return repository.save(entity);
+	}
+
+	//aqui vamos atualizar o campos ou atributos da classe 
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+		//entity.setPassword(obj.getPassword()); ñ vou permitir atulizar a senha e nem o Id
+	}
 }
