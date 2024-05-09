@@ -13,6 +13,8 @@ import com.devcarlosgti.courseSprint.repositories.UserRepository;
 import com.devcarlosgti.courseSprint.services.exceptions.DatabaseException;
 import com.devcarlosgti.courseSprint.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 //p spring boot precisando registra a UserService(@Component) mais e serviço vamos usar(@Service)
 @Service //-esta registrado com spring
 public class UserService {
@@ -58,9 +60,14 @@ public class UserService {
 	public User update(Long id, User obj) {
 		//User entity = repository.getOne(id); getONE dexou de uso agora é getReferenceById
 		//vai sedeixar no ponto para poder trabalhar com database
-		User entity = repository.getReferenceById(id);
-		updateData(entity, obj);//esse metdodo serar criado
-		return repository.save(entity);
+		try {
+			User entity = repository.getReferenceById(id);
+			updateData(entity, obj);//esse metdodo serar criado
+			return repository.save(entity);
+		}
+		catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	//aqui vamos atualizar o campos ou atributos da classe 
