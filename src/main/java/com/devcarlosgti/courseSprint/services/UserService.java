@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.devcarlosgti.courseSprint.entities.User;
 import com.devcarlosgti.courseSprint.repositories.UserRepository;
+import com.devcarlosgti.courseSprint.services.exceptions.ResourceNotFoundException;
 
 //p spring boot precisando registra a UserService(@Component) mais e serviço vamos usar(@Service)
 @Service //-esta registrado com spring
@@ -28,7 +29,8 @@ public class UserService {
 	//metodo p buscra por ID
 	public User findByID(Long id) {//igual esta na Entidade
 		Optional<User> obj =  repository.findById(id);
-		return obj.get();//. get porder pegar 
+		//return obj.get();//. get porder pegar 
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));//se ñ encontrar o id dar uma exceção
 	}
 	
 	//metodo p inserir dados
